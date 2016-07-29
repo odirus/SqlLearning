@@ -30,3 +30,20 @@ WHERE t1.people_id IN (
 	SELECT id FROM tab_people WHERE tab_people.age  = 10
 )
 ```
+
+后记：
+1) 连接查询时，左边左表不会为空，右边可能会为空，不过可以通过 where 进行限制查询
+```
+SELECT
+	t1.*, t4.code_name AS resource_type_name
+FROM
+	tab_resource t1
+LEFT JOIN tab_resource_product t2 ON t1.id = t2.resource_id
+LEFT JOIN tab_product_version t3 ON t2.product_version_id = t3.id 
+LEFT JOIN tab_total_code t4 ON t1.resource_type_id = t4.id 
+WHERE
+	t3.product_key = '***'
+AND t3.product_version = '***'
+AND t3.platform = '***'
+```
+
